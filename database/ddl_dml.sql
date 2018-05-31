@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS crud;
 CREATE DATABASE crud CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-GRANT ALL ON crud.* TO crud@localhost IDENTIFIED BY 'password';
+-- GRANT ALL ON crud.* TO crud@localhost IDENTIFIED BY 'password';
 
 USE crud;
 CREATE TABLE tbl_person
