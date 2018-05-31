@@ -1,4 +1,4 @@
-# Person Sample Webapp
+# Person Sample Webapp [![Build Status](https://travis-ci.org/cesardl/person-sample-webapp.svg?branch=master)](https://travis-ci.org/cesardl/person-sample-webapp)
 
 Is an application that I implement when studiyng about Spring. 
 Now I'm using Maven and Tomcat plugin to launch the app.
