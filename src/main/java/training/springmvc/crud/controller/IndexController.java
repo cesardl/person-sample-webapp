@@ -25,7 +25,7 @@ public class IndexController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Map model = new HashMap();
         PagedListHolder pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
 
@@ -33,9 +33,9 @@ public class IndexController implements Controller {
             pagedListHolder = new PagedListHolder(personService.getPersonList());
         } else {
             String page = request.getParameter("page");
-            if ("next".equals(page)) {
+            if ("next" .equals(page)) {
                 pagedListHolder.nextPage();
-            } else if ("previous".equals(page)) {
+            } else if ("previous" .equals(page)) {
                 pagedListHolder.previousPage();
             }
         }

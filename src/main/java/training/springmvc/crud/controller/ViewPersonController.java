@@ -26,7 +26,7 @@ public class ViewPersonController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Map model = new HashMap();
 
         Long id = Long.parseLong(request.getParameter("personId"));

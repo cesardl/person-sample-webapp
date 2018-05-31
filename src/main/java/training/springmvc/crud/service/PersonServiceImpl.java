@@ -4,12 +4,12 @@
  */
 package training.springmvc.crud.service;
 
-import java.util.List;
 import training.springmvc.crud.dao.PersonDAO;
 import training.springmvc.crud.model.Person;
 
+import java.util.List;
+
 /**
- *
  * @author henri
  */
 public class PersonServiceImpl implements PersonService {

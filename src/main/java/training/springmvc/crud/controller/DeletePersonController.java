@@ -14,7 +14,6 @@ import training.springmvc.crud.service.PersonService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class DeletePersonController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Map model = new HashMap();
 
         Long id = Long.parseLong(request.getParameter("personId"));
@@ -38,8 +37,8 @@ public class DeletePersonController implements Controller {
         PagedListHolder pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
 
         List personList = pagedListHolder.getSource();
-        for (Iterator iterator = personList.iterator(); iterator.hasNext(); ) {
-            Person person = (Person) iterator.next();
+        for (Object aPersonList : personList) {
+            Person person = (Person) aPersonList;
             if (person.getId().equals(id)) {
                 personList.remove(person);
                 break;

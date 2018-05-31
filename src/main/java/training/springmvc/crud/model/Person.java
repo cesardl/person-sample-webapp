@@ -27,14 +27,14 @@ public class Person implements Serializable {
         return dob;
     }
 
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
     public void setDob_(String dob_) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = simpleDateFormat.parse(dob_);
         this.dob = date;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     public Character getGender() {

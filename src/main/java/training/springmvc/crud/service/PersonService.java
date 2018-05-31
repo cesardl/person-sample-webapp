@@ -5,11 +5,11 @@
 
 package training.springmvc.crud.service;
 
-import java.util.List;
 import training.springmvc.crud.model.Person;
 
+import java.util.List;
+
 /**
- *
  * @author henri
  */
 public interface PersonService {
