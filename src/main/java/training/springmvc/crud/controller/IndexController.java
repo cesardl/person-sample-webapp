@@ -26,16 +26,16 @@ public class IndexController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map model = new HashMap();
+        Map<String, PagedListHolder> model = new HashMap<>();
         PagedListHolder pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
 
         if (pagedListHolder == null) {
             pagedListHolder = new PagedListHolder(personService.getPersonList());
         } else {
             String page = request.getParameter("page");
-            if ("next" .equals(page)) {
+            if ("next".equals(page)) {
                 pagedListHolder.nextPage();
-            } else if ("previous" .equals(page)) {
+            } else if ("previous".equals(page)) {
                 pagedListHolder.previousPage();
             }
         }

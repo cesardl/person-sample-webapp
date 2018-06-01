@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface PersonDAO {
 
-    public List getPersonList();
+    List getPersonList();
 
-    public Person getPerson(Long id);
+    Person getPerson(Long id);
 
-    public void savePerson(Person person);
+    void savePerson(Person person);
 
-    public void deletePerson(Long id);
+    void deletePerson(Long id);
 }

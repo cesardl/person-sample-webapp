@@ -29,7 +29,7 @@ public class DeletePersonController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map model = new HashMap();
+        Map<String, PagedListHolder> model = new HashMap<>();
 
         Long id = Long.parseLong(request.getParameter("personId"));
         personService.deletePerson(id);

@@ -1,4 +1,4 @@
-# Person Sample Webapp [![Build Status](https://travis-ci.org/cesardl/person-sample-webapp.svg?branch=master)](https://travis-ci.org/cesardl/person-sample-webapp)
+# Person Sample Webapp [![Build Status](https://travis-ci.org/cesardl/person-sample-webapp.svg?branch=master)](https://travis-ci.org/cesardl/person-sample-webapp) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sanmarcux.samples.mysql.person&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.sanmarcux.samples.mysql.person) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=org.sanmarcux.samples.mysql.person&metric=coverage)](https://sonarcloud.io/component_measures?id=org.sanmarcux.samples.mysql.person&metric=coverage)
 
 Is an application that I implement when studiyng about Spring. 
 Now I'm using Maven and Tomcat plugin to launch the app.
