@@ -24,7 +24,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/applicationContext.xml", "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
+@ContextConfiguration(locations = {
+        "file:src/main/webapp/WEB-INF/applicationContext.xml",
+        "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"
+})
 public class PersonControllersTest {
 
     @Autowired

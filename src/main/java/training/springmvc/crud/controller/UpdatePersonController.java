@@ -27,7 +27,7 @@ public class UpdatePersonController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<>();
 
         Long id = Long.parseLong(request.getParameter("personId"));
         Person person = personService.getPerson(id);

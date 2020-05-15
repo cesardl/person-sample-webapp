@@ -29,16 +29,15 @@ public class DeletePersonController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, PagedListHolder> model = new HashMap<>();
+        Map<String, PagedListHolder<Person>> model = new HashMap<>();
 
         Long id = Long.parseLong(request.getParameter("personId"));
         personService.deletePerson(id);
 
-        PagedListHolder pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
+        PagedListHolder<Person> pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
 
-        List personList = pagedListHolder.getSource();
-        for (Object aPersonList : personList) {
-            Person person = (Person) aPersonList;
+        List<Person> personList = pagedListHolder.getSource();
+        for (Person person : personList) {
             if (person.getId().equals(id)) {
                 personList.remove(person);
                 break;

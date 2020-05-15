@@ -20,7 +20,7 @@ public class PersonServiceImpl implements PersonService {
         this.personDAO = personDAO;
     }
 
-    public List getPersonList() {
+    public List<Person> getPersonList() {
         return personDAO.getPersonList();
     }
 

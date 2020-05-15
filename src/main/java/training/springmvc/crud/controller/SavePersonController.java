@@ -33,7 +33,7 @@ public class SavePersonController extends AbstractCommandController {
 
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object form, BindException errors) {
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<>();
 
         Person person = (Person) form;
         personService.savePerson(person);

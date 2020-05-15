@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class PersonDAOHib extends HibernateDaoSupport implements PersonDAO {
 
-    public List getPersonList() {
+    public List<Person> getPersonList() {
         return getHibernateTemplate().find("from Person");
     }
 

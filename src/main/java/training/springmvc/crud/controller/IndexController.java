@@ -7,6 +7,7 @@ package training.springmvc.crud.controller;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
+import training.springmvc.crud.model.Person;
 import training.springmvc.crud.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +27,11 @@ public class IndexController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, PagedListHolder> model = new HashMap<>();
-        PagedListHolder pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
+        Map<String, PagedListHolder<Person>> model = new HashMap<>();
+        PagedListHolder<Person> pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
 
         if (pagedListHolder == null) {
-            pagedListHolder = new PagedListHolder(personService.getPersonList());
+            pagedListHolder = new PagedListHolder<>(personService.getPersonList());
         } else {
             String page = request.getParameter("page");
             if ("next".equals(page)) {

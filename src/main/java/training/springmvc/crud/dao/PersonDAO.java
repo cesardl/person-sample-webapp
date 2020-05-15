@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface PersonDAO {
 
-    List getPersonList();
+    List<Person> getPersonList();
 
     Person getPerson(Long id);
 

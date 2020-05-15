@@ -19,8 +19,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring.version>3.2.8.RELEASE</spring.version>
+        <spring.version>3.2.9.RELEASE</spring.version>
         <hibernate.version>3.3.2.GA</hibernate.version>
+
+        <slf4j.version>1.7.5</slf4j.version>
     </properties>
 
     <dependencies>
@@ -48,7 +50,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.8</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
