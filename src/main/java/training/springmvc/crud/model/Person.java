@@ -5,8 +5,8 @@
 package training.springmvc.crud.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author henri
@@ -33,8 +33,8 @@ public class Person implements Serializable {
 
     public void setDob_(String dob_) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = simpleDateFormat.parse(dob_);
-        this.dob = date;
+        java.util.Date date = simpleDateFormat.parse(dob_);
+        this.dob = new Date(date.getTime());
     }
 
     public Character getGender() {
