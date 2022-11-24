@@ -20,7 +20,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring.version>3.2.9.RELEASE</spring.version>
-        <hibernate.version>3.3.2.GA</hibernate.version>
+        <hibernate.version>5.3.20.Final</hibernate.version>
 
         <slf4j.version>1.7.5</slf4j.version>
     </properties>
