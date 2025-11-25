@@ -4,24 +4,33 @@
  */
 package training.springmvc.crud.model;
 
+import jakarta.persistence.*;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
  * @author henri
  */
+@Entity
+@Table(name = "tbl_person")
 public class Person implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -5058945734356777328L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "gender")
     private Character gender;
+    @Column(name = "dob")
     private Date dob;
-
-    public Person() {
-    }
 
     public Date getDob() {
         return dob;
@@ -31,7 +40,7 @@ public class Person implements Serializable {
         this.dob = dob;
     }
 
-    public void setDob_(String dob_) throws Exception {
+    public void setDobStr(String dob_) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date date = simpleDateFormat.parse(dob_);
         this.dob = new Date(date.getTime());
