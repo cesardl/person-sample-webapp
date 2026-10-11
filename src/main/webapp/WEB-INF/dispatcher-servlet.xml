@@ -7,12 +7,6 @@
                            http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Action Handling -->
-    <!-- BeanNameUrlHandlerMapping
-        This configuration is optional because BeanNameUrlHandlerMapping is the default handler.
-        In case no handler mapping is found in the web application context, SpringMVC will create an instance of BeanNameUrlHandlerMapping.
-    -->
-    <bean name="beanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
-
     <mvc:annotation-driven/>
     <!-- end of Action Handling -->
 
@@ -30,27 +24,22 @@
 
     <!-- Page Controller -->
     <bean id="index.html"
-          name="/index.html"
           class="training.springmvc.crud.controller.IndexController"
           p:personService-ref="personService"/>
 
     <bean id="view.html"
-          name="/view.html"
           class="training.springmvc.crud.controller.ViewPersonController"
           p:personService-ref="personService"/>
 
     <bean id="update.html"
-          name="/update.html"
           class="training.springmvc.crud.controller.UpdatePersonController"
           p:personService-ref="personService"/>
 
     <bean id="save.html"
-          name="/save.html"
           class="training.springmvc.crud.controller.SavePersonController"
           p:personService-ref="personService"/>
 
     <bean id="delete.html"
-          name="/delete.html"
           class="training.springmvc.crud.controller.DeletePersonController"
           p:personService-ref="personService"/>
     <!-- end of Page Controller -->
