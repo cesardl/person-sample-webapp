@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author henri
  */
-public class PersonDAOHib implements PersonDAO {
+public class PersonDAOHib {
 
     private SessionFactory sessionFactory;
 

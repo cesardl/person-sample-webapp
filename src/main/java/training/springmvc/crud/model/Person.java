@@ -9,8 +9,6 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * @author henri
@@ -38,12 +36,6 @@ public class Person implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    public void setDobStr(String dob_) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date date = simpleDateFormat.parse(dob_);
-        this.dob = new Date(date.getTime());
     }
 
     public Character getGender() {

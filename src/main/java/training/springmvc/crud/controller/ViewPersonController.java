@@ -5,20 +5,18 @@
 
 package training.springmvc.crud.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import training.springmvc.crud.model.Person;
 import training.springmvc.crud.service.PersonService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author henri
  */
-public class ViewPersonController implements Controller {
+@Controller
+public class ViewPersonController {
 
     private PersonService personService;
 
@@ -26,15 +24,13 @@ public class ViewPersonController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> model = new HashMap<>();
+    @GetMapping("view.html")
+    public String handleRequest(@RequestParam("personId") Long personId, Model model) {
+        Person person = personService.getPerson(personId);
 
-        Long id = Long.parseLong(request.getParameter("personId"));
-        Person person = personService.getPerson(id);
-
-        model.put("title", "Person Details");
-        model.put("person", person);
-        return new ModelAndView("personView", model);
+        model.addAttribute("title", "Person Details");
+        model.addAttribute("person", person);
+        return "personView";
     }
 
 }
