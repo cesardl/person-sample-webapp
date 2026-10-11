@@ -4,21 +4,20 @@
  */
 package training.springmvc.crud.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import training.springmvc.crud.model.Person;
 import training.springmvc.crud.service.PersonService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author henri
  */
-public class IndexController implements Controller {
+@Controller
+public class IndexController {
 
     private PersonService personService;
 
@@ -26,24 +25,22 @@ public class IndexController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, PagedListHolder<Person>> model = new HashMap<>();
-        PagedListHolder<Person> pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
+    @GetMapping("index.html")
+    @SuppressWarnings("unchecked")
+    public String handleRequest(@RequestParam(value = "page", required = false) String page, HttpSession session, Model model) {
+        PagedListHolder<Person> pagedListHolder = (PagedListHolder<Person>) session.getAttribute("personList");
 
         if (pagedListHolder == null) {
             pagedListHolder = new PagedListHolder<>(personService.getPersonList());
-        } else {
-            String page = request.getParameter("page");
-            if ("next".equals(page)) {
-                pagedListHolder.nextPage();
-            } else if ("previous".equals(page)) {
-                pagedListHolder.previousPage();
-            }
+        } else if ("next".equals(page)) {
+            pagedListHolder.nextPage();
+        } else if ("previous".equals(page)) {
+            pagedListHolder.previousPage();
         }
 
-        request.getSession().setAttribute("personList", pagedListHolder);
-        model.put("personList", pagedListHolder);
+        session.setAttribute("personList", pagedListHolder);
+        model.addAttribute("personList", pagedListHolder);
 
-        return new ModelAndView("index", model);
+        return "index";
     }
 }

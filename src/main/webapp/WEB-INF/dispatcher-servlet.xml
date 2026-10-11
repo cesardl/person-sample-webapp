@@ -71,11 +71,6 @@
           p:personService="personService"
           p:personService-ref="personService"/>
 
-    <bean id="add.html"
-          name="/add.html"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="personEdit"/>
-
     <bean id="update.html"
           name="/update.html"
           class="training.springmvc.crud.controller.UpdatePersonController"

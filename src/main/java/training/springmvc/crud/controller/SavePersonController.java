@@ -8,6 +8,7 @@ package training.springmvc.crud.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import training.springmvc.crud.model.Person;
@@ -23,6 +24,11 @@ public class SavePersonController {
 
     public void setPersonService(PersonService personService) {
         this.personService = personService;
+    }
+
+    @GetMapping("add.html")
+    public String addForm() {
+        return "personEdit";
     }
 
     @PostMapping("save.html")
