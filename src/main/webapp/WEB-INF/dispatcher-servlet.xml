@@ -32,31 +32,26 @@
     <bean id="index.html"
           name="/index.html"
           class="training.springmvc.crud.controller.IndexController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="view.html"
           name="/view.html"
           class="training.springmvc.crud.controller.ViewPersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="update.html"
           name="/update.html"
           class="training.springmvc.crud.controller.UpdatePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="save.html"
           name="/save.html"
           class="training.springmvc.crud.controller.SavePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="delete.html"
           name="/delete.html"
           class="training.springmvc.crud.controller.DeletePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
     <!-- end of Page Controller -->
 
