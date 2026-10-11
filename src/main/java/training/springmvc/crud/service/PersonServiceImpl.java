@@ -4,7 +4,7 @@
  */
 package training.springmvc.crud.service;
 
-import training.springmvc.crud.dao.PersonDAO;
+import training.springmvc.crud.dao.PersonDAOHib;
 import training.springmvc.crud.model.Person;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class PersonServiceImpl implements PersonService {
 
-    private PersonDAO personDAO;
+    private PersonDAOHib personDAO;
 
-    public void setPersonDAO(PersonDAO personDAO) {
+    public void setPersonDAO(PersonDAOHib personDAO) {
         this.personDAO = personDAO;
     }
 
