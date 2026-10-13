@@ -4,7 +4,10 @@
 FROM tomcat:11.0-jdk21-temurin
 
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY target/person-sample-webapp.war /usr/local/tomcat/webapps/ROOT.war
+# Filename becomes the context path on Tomcat's auto-deploy, matching the
+# /TrainingSpringMVC path already used by the local SmartTomcat run config
+# (.idea/workspace.xml).
+COPY target/person-sample-webapp.war /usr/local/tomcat/webapps/TrainingSpringMVC.war
 
 # Overrides jdbc.properties: Spring's PropertySourcesPlaceholderConfigurer
 # resolves placeholders against the environment before the properties file,
@@ -15,3 +18,7 @@ COPY target/person-sample-webapp.war /usr/local/tomcat/webapps/ROOT.war
 ENV JDBC_URL=jdbc:mysql://mysql-v8:3306/crud?zeroDateTimeBehavior=convertToNull
 
 EXPOSE 8080
+# Run on cesardl-bridge-network alongside mysql-v8, and publish on the same
+# port used by the local SmartTomcat run config:
+#   docker run -d --name person-sample-webapp --network cesardl-bridge-network \
+#     -p 8282:8080 person-sample-webapp:local
