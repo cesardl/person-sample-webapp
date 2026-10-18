@@ -1,27 +1,24 @@
 package training.springmvc.crud.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.web.context.WebApplicationContext;
 import training.springmvc.crud.model.Person;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created on 30/05/2018.
  *
  * @author Cesardl
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {
         "file:src/main/webapp/WEB-INF/applicationContext.xml",
@@ -32,39 +29,41 @@ public class PersonControllersTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    private MockMvc mockMvc;
+    private MockMvcTester mockMvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        this.mockMvc = webAppContextSetup(this.webApplicationContext).build();
+        this.mockMvc = MockMvcTester.from(this.webApplicationContext);
     }
 
     @Test
-    public void indexTest() throws Exception {
-        this.mockMvc.perform(get("/index.html"))
-                .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/jsp/index.jsp"))
-                .andExpect(model().attribute("personList", any(PersonPage.class)))
-                .andExpect(view().name("index"));
+    public void indexTest() {
+        assertThat(this.mockMvc.get().uri("/index.html"))
+                .hasStatusOk()
+                .hasForwardedUrl("/WEB-INF/jsp/index.jsp")
+                .hasViewName("index")
+                .model().extractingByKey("personList").isInstanceOf(PersonPage.class);
     }
 
     @Test
-    public void viewTest() throws Exception {
-        this.mockMvc.perform(get("/view.html").param("personId", "1"))
-                .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/jsp/personView.jsp"))
-                .andExpect(model().attribute("title", "Person Details"))
-                .andExpect(model().attribute("person", any(Person.class)))
-                .andExpect(view().name("personView"));
+    public void viewTest() {
+        assertThat(this.mockMvc.get().uri("/view.html").param("personId", "1"))
+                .hasStatusOk()
+                .hasForwardedUrl("/WEB-INF/jsp/personView.jsp")
+                .hasViewName("personView")
+                .model()
+                .containsEntry("title", "Person Details")
+                .extractingByKey("person").isInstanceOf(Person.class);
     }
 
     @Test
-    public void updateTest() throws Exception {
-        this.mockMvc.perform(get("/update.html").param("personId", "1"))
-                .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/jsp/personEdit.jsp"))
-                .andExpect(model().attribute("title", "Update Person"))
-                .andExpect(model().attribute("person", any(Person.class)))
-                .andExpect(view().name("personEdit"));
+    public void updateTest() {
+        assertThat(this.mockMvc.get().uri("/update.html").param("personId", "1"))
+                .hasStatusOk()
+                .hasForwardedUrl("/WEB-INF/jsp/personEdit.jsp")
+                .hasViewName("personEdit")
+                .model()
+                .containsEntry("title", "Update Person")
+                .extractingByKey("person").isInstanceOf(Person.class);
     }
 }
