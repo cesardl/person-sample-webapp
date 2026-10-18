@@ -40,7 +40,12 @@ public class Person implements Serializable {
         this.dob = dob;
     }
 
-    public void setDobStr(String dob_) throws ParseException {
+    // personEdit.jsp submits the date under the field name "dob_" (so the
+    // calendar widget in script/calendar.js, which looks fields up by name,
+    // keeps working); Spring's binder matches that to this setter by name,
+    // not to setDob(Date). Needed because java.sql.Date has no registered
+    // converter for the "dd-MM-yyyy" string the form sends.
+    public void setDob_(String dob_) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date date = simpleDateFormat.parse(dob_);
         this.dob = new Date(date.getTime());

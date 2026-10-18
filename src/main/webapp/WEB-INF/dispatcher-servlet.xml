@@ -7,30 +7,7 @@
                            http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Action Handling -->
-    <!-- BeanNameUrlHandlerMapping
-        This configuration is optional because BeanNameUrlHandlerMapping is the default handler.
-        In case no handler mapping is found in the web application context, SpringMVC will create an instance of BeanNameUrlHandlerMapping.
-    -->
-    <bean name="beanNameUrlHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
-
     <mvc:annotation-driven/>
-
-    <!-- SimpleUrlHandlerMapping
-        The BeanNameUrlHandlerMapping class does not support wildcards to resolve a request URL to a bean name.
-        Configuration can be simplified with Apache Ant–style wildcard path mapping with the SimpleUrlHandlerMapping.
-
-    <bean name="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="/*.html"></prop>
-            </props>
-        </property>
-    </bean>
-    -->
-    <!-- ControllerClassNameHandlerMapping
-
-    <bean name="controllerClassNameHandlerMapping" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-    -->
     <!-- end of Action Handling -->
 
 
@@ -42,56 +19,28 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
-    <!-- ResourceBundleViewResolver
-        It allows the logical view name to physical resource mapping to be configured in externalized properties or resource bundle files.
-
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-        <property name="basename" value=""/>
-    </bean>
-    -->
-    <!-- XmlViewResolver
-        To use an XML-based view resolver, configuration information should be moved in XML files from the properties file.
-        This view configuration file should be located in the WEB-INF folder and is called views.xml by default.
-
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver"/>
-    -->
     <!-- end of View Handler -->
 
 
     <!-- Page Controller -->
     <bean id="index.html"
-          name="/index.html"
           class="training.springmvc.crud.controller.IndexController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="view.html"
-          name="/view.html"
           class="training.springmvc.crud.controller.ViewPersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
-    <bean id="add.html"
-          name="/add.html"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="personEdit"/>
-
     <bean id="update.html"
-          name="/update.html"
           class="training.springmvc.crud.controller.UpdatePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="save.html"
-          name="/save.html"
           class="training.springmvc.crud.controller.SavePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
 
     <bean id="delete.html"
-          name="/delete.html"
           class="training.springmvc.crud.controller.DeletePersonController"
-          p:personService="personService"
           p:personService-ref="personService"/>
     <!-- end of Page Controller -->
 
