@@ -65,7 +65,7 @@ div.success {
 a.update, a.delete, a.add, a.view, a.back {
 	font-size: 9pt;
 	color:#900;
-	font-wight:bold;
+	font-weight:bold;
 	padding-left:20px;
 	text-decoration: none;
 }
