@@ -32,7 +32,12 @@ public class PersonDAOHib {
     }
 
     public void savePerson(Person person) {
-        this.sessionFactory.getCurrentSession().merge(person);
+        // merge() returns a separate managed instance and does not write the
+        // generated id back onto `person` the way saveOrUpdate() used to --
+        // copy it back so callers that redisplay `person` after an insert
+        // (SavePersonController) see the real id instead of null.
+        Person managed = this.sessionFactory.getCurrentSession().merge(person);
+        person.setId(managed.getId());
     }
 
     public void deletePerson(Long id) {
