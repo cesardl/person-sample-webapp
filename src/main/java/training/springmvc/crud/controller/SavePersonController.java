@@ -5,7 +5,6 @@
 
 package training.springmvc.crud.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +31,8 @@ public class SavePersonController {
     }
 
     @PostMapping("save.html")
-    public String handleRequest(@ModelAttribute Person person, HttpSession session, Model model) {
+    public String handleRequest(@ModelAttribute Person person, Model model) {
         personService.savePerson(person);
-
-        session.setAttribute("personList", null);
 
         model.addAttribute("title", "Update Person");
         model.addAttribute("person", person);

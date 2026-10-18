@@ -20,8 +20,8 @@
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.release>21</maven.compiler.release>
 
-        <spring.version>6.2.18</spring.version>
-        <hibernate.version>6.2.6.Final</hibernate.version>
+        <spring.version>7.0.9</spring.version>
+        <hibernate.version>7.2.0.Final</hibernate.version>
 
         <slf4j.version>1.7.5</slf4j.version>
     </properties>
@@ -77,9 +77,15 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>6.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
