@@ -28,14 +28,14 @@ public class PersonDAOHib {
     }
 
     public Person getPerson(Long id) {
-        return sessionFactory.getCurrentSession().get(Person.class, id);
+        return sessionFactory.getCurrentSession().find(Person.class, id);
     }
 
     public void savePerson(Person person) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(person);
+        this.sessionFactory.getCurrentSession().merge(person);
     }
 
     public void deletePerson(Long id) {
-        sessionFactory.getCurrentSession().detach(getPerson(id));
+        sessionFactory.getCurrentSession().remove(getPerson(id));
     }
 }

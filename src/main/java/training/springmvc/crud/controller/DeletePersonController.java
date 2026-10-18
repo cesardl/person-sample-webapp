@@ -5,16 +5,10 @@
 
 package training.springmvc.crud.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import training.springmvc.crud.model.Person;
 import training.springmvc.crud.service.PersonService;
-
-import java.util.List;
 
 /**
  * @author henri
@@ -29,24 +23,9 @@ public class DeletePersonController {
     }
 
     @GetMapping("delete.html")
-    @SuppressWarnings("unchecked")
-    public String handleRequest(@RequestParam("personId") Long personId, HttpSession session, Model model) {
+    public String handleRequest(@RequestParam("personId") Long personId) {
         personService.deletePerson(personId);
-
-        PagedListHolder<Person> pagedListHolder = (PagedListHolder<Person>) session.getAttribute("personList");
-
-        List<Person> personList = pagedListHolder.getSource();
-        for (Person person : personList) {
-            if (person.getId().equals(personId)) {
-                personList.remove(person);
-                break;
-            }
-        }
-        pagedListHolder.setSource(personList);
-
-        session.setAttribute("personList", pagedListHolder);
-        model.addAttribute("personList", pagedListHolder);
-        return "index";
+        return "redirect:index.html";
     }
 
 }
