@@ -3,6 +3,13 @@
 Is an application that I implement when studiyng about Spring. 
 Now I'm using Maven and Tomcat plugin to launch the app.
 
+### Running locally
+
+- Requires JDK 21 and Maven.
+- Needs a reachable MySQL 8 instance (a local Docker container works fine) seeded from `database/ddl_dml.sql`, matching the coordinates in `src/main/webapp/WEB-INF/jdbc.properties`.
+- Build + test: `mvn clean verify`. The resulting WAR deploys to any Servlet 6.1 container (locally via IntelliJ's SmartTomcat plugin, config under `.smarttomcat/`).
+- See `CLAUDE.md` for full build/test commands and an architecture overview.
+
 ### From the author
 
 You can find the original sample in this [link](https://henrihnr.wordpress.com/2009/05/25/simple-crud-springmvc-hibernate3/).

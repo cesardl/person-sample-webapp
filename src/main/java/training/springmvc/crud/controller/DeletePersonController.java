@@ -5,22 +5,22 @@
 
 package training.springmvc.crud.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import training.springmvc.crud.model.Person;
 import training.springmvc.crud.service.PersonService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author henri
  */
-public class DeletePersonController implements Controller {
+@Controller
+public class DeletePersonController {
 
     private PersonService personService;
 
@@ -28,26 +28,25 @@ public class DeletePersonController implements Controller {
         this.personService = personService;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, PagedListHolder<Person>> model = new HashMap<>();
+    @GetMapping("delete.html")
+    @SuppressWarnings("unchecked")
+    public String handleRequest(@RequestParam("personId") Long personId, HttpSession session, Model model) {
+        personService.deletePerson(personId);
 
-        Long id = Long.parseLong(request.getParameter("personId"));
-        personService.deletePerson(id);
-
-        PagedListHolder<Person> pagedListHolder = (PagedListHolder) request.getSession().getAttribute("personList");
+        PagedListHolder<Person> pagedListHolder = (PagedListHolder<Person>) session.getAttribute("personList");
 
         List<Person> personList = pagedListHolder.getSource();
         for (Person person : personList) {
-            if (person.getId().equals(id)) {
+            if (person.getId().equals(personId)) {
                 personList.remove(person);
                 break;
             }
         }
         pagedListHolder.setSource(personList);
 
-        request.getSession().setAttribute("personList", pagedListHolder);
-        model.put("personList", pagedListHolder);
-        return new ModelAndView("index", model);
+        session.setAttribute("personList", pagedListHolder);
+        model.addAttribute("personList", pagedListHolder);
+        return "index";
     }
 
 }

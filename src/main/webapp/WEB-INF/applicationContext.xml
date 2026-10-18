@@ -48,7 +48,6 @@
 
     <!-- DAO -->
     <bean id="personDAO" class="training.springmvc.crud.dao.PersonDAOHib"
-          p:sessionFactory="sessionFactory"
           p:sessionFactory-ref="sessionFactory"/>
 
 </beans>
