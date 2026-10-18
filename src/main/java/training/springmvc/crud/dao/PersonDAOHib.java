@@ -36,6 +36,6 @@ public class PersonDAOHib {
     }
 
     public void deletePerson(Long id) {
-        sessionFactory.getCurrentSession().detach(getPerson(id));
+        sessionFactory.getCurrentSession().remove(getPerson(id));
     }
 }
