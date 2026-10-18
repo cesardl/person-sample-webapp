@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -45,7 +44,7 @@ public class PersonControllersTest {
         this.mockMvc.perform(get("/index.html"))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/jsp/index.jsp"))
-                .andExpect(model().attribute("personList", any(PagedListHolder.class)))
+                .andExpect(model().attribute("personList", any(PersonPage.class)))
                 .andExpect(view().name("index"));
     }
 
