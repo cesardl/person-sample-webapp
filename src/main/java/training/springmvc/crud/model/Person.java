@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author henri
@@ -36,6 +38,17 @@ public class Person implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    // personEdit.jsp submits the date under the field name "dob_" (so the
+    // calendar widget in script/calendar.js, which looks fields up by name,
+    // keeps working); Spring's binder matches that to this setter by name,
+    // not to setDob(Date). Needed because java.sql.Date has no registered
+    // converter for the "dd-MM-yyyy" string the form sends.
+    public void setDob_(String dob_) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date date = simpleDateFormat.parse(dob_);
+        this.dob = new Date(date.getTime());
     }
 
     public Character getGender() {
