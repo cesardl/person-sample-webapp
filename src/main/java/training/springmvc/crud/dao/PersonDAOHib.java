@@ -28,7 +28,7 @@ public class PersonDAOHib {
     }
 
     public Person getPerson(Long id) {
-        return sessionFactory.getCurrentSession().get(Person.class, id);
+        return sessionFactory.getCurrentSession().find(Person.class, id);
     }
 
     public void savePerson(Person person) {
