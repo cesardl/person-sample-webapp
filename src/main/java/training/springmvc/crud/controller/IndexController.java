@@ -26,19 +26,20 @@ public class IndexController {
     }
 
     @GetMapping("index.html")
-    @SuppressWarnings("unchecked")
     public String handleRequest(@RequestParam(value = "page", required = false) String page, HttpSession session, Model model) {
-        PagedListHolder<Person> pagedListHolder = (PagedListHolder<Person>) session.getAttribute("personList");
+        PagedListHolder<Person> pagedListHolder = new PagedListHolder<>(personService.getPersonList());
 
-        if (pagedListHolder == null) {
-            pagedListHolder = new PagedListHolder<>(personService.getPersonList());
-        } else if ("next".equals(page)) {
+        Integer currentPage = (Integer) session.getAttribute("personListPage");
+        if (currentPage != null) {
+            pagedListHolder.setPage(currentPage);
+        }
+        if ("next".equals(page)) {
             pagedListHolder.nextPage();
         } else if ("previous".equals(page)) {
             pagedListHolder.previousPage();
         }
 
-        session.setAttribute("personList", pagedListHolder);
+        session.setAttribute("personListPage", pagedListHolder.getPage());
         model.addAttribute("personList", pagedListHolder);
 
         return "index";
