@@ -32,7 +32,7 @@ public class PersonDAOHib {
     }
 
     public void savePerson(Person person) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(person);
+        this.sessionFactory.getCurrentSession().merge(person);
     }
 
     public void deletePerson(Long id) {
