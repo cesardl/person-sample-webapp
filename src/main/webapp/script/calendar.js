@@ -13,6 +13,13 @@ var defaultDateFormat = "dmy"    // valid values are "mdy", "dmy", and "ymd"
 var dateSeparator = defaultDateSeparator;
 var dateFormat = defaultDateFormat;
 
+// Strips anything but a safe identifier before a field name is ever
+// concatenated into the HTML strings refreshDatePicker() assigns via
+// innerHTML (CodeQL js/xss-through-dom). Real field names here are
+// always simple names like "dob_", so this has no behavioral effect.
+function sanitizeFieldName(name) {
+  return String(name).replace(/[^A-Za-z0-9_-]/g, "");
+}
 
 function CopyText(SourceFeild, DestinationFeild) {
 	document.getElementsByName (DestinationFeild).item(0).value = document.getElementsByName (SourceFeild).item(0).value;
@@ -77,12 +84,14 @@ function drawDatePicker(targetDateField, x, y)
   pickerDiv.style.position = "absolute";
   pickerDiv.style.left = x + "px";
   pickerDiv.style.top = y + "px";
-  pickerDiv.style.visibility = (pickerDiv.style.visibility == "visible" ? "hidden" : "visible");
-  pickerDiv.style.display = (pickerDiv.style.display == "block" ? "none" : "block");
+  pickerDiv.style.visibility = (pickerDiv.style.visibility === "visible" ? "hidden" : "visible");
+  pickerDiv.style.display = (pickerDiv.style.display === "block" ? "none" : "block");
   pickerDiv.style.zIndex = 10000;
- 
+
   // draw the datepicker table
-  refreshDatePicker(targetDateField.name, dt.getFullYear(), dt.getMonth(), dt.getDate());
+  // sanitized because dateFieldName gets concatenated into HTML strings
+  // assigned via innerHTML below (CodeQL js/xss-through-dom)
+  refreshDatePicker(sanitizeFieldName(targetDateField.name), dt.getFullYear(), dt.getMonth(), dt.getDate());
 }
 
 
@@ -137,7 +146,7 @@ function refreshDatePicker(dateFieldName, year, month, day)
  
   // this is the row that indicates which day of the week we're on
   html += TR_days;
-  for(i = 0; i < dayArrayMed.length; i++)
+  for(var i = 0; i < dayArrayMed.length; i++)
 	html += TD_days + dayArrayMed[i] + xTD;
   html += xTR;
  
@@ -145,21 +154,21 @@ function refreshDatePicker(dateFieldName, year, month, day)
   html += TR;
  
   // first, the leading blanks
-  for (i = 0; i < thisDay.getDay(); i++)
+  for (var i = 0; i < thisDay.getDay(); i++)
 	html += TD + "&nbsp;" + xTD;
  
   // now, the days of the month
   do {
-	dayNum = thisDay.getDate();
-	TD_onclick = " onclick=\"updateDateField('" + dateFieldName + "', '" + getDateString(thisDay) + "');\">";
-	
-	if (dayNum == day)
+	var dayNum = thisDay.getDate();
+	var TD_onclick = " onclick=\"updateDateField('" + dateFieldName + "', '" + getDateString(thisDay) + "');\">";
+
+	if (dayNum === day)
 	  html += TD_selected + TD_onclick + DIV_selected + dayNum + xDIV + xTD;
 	else
 	  html += TD + TD_onclick + dayNum + xTD;
-	
+
 	// if this is a Saturday, start a new row
-	if (thisDay.getDay() == 6)
+	if (thisDay.getDay() === 6)
 	  html += xTR + TR;
 	
 	// increment the day
@@ -168,7 +177,7 @@ function refreshDatePicker(dateFieldName, year, month, day)
  
   // fill in any trailing blanks
   if (thisDay.getDay() > 0) {
-	for (i = 6; i > thisDay.getDay(); i--)
+	for (var i = 6; i > thisDay.getDay(); i--)
 	  html += TD + "&nbsp;" + xTD;
   }
   html += xTR;
@@ -311,7 +320,7 @@ function updateDateField(dateFieldName, dateString)
   // after the datepicker has closed, optionally run a user-defined function called
   // datePickerClosed, passing the field that was just updated as a parameter
   // (note that this will only run if the user actually selected a date from the datepicker)
-  if ((dateString) && (typeof(datePickerClosed) == "function"))
+  if ((dateString) && (typeof(datePickerClosed) === "function"))
 	datePickerClosed(targetDateField);
 }
 
@@ -321,7 +330,7 @@ function adjustiFrame(pickerDiv, iFrameDiv)
 {
   // we know that Opera doesn't like something about this, so if we
   // think we're using Opera, don't even try
-  var is_opera = (navigator.userAgent.toLowerCase().indexOf("opera") != -1);
+  var is_opera = (navigator.userAgent.toLowerCase().indexOf("opera") !== -1);
   if (is_opera)
 	return;
   
