@@ -18,7 +18,8 @@ COPY target/person-sample-webapp.war /usr/local/tomcat/webapps/TrainingSpringMVC
 ENV JDBC_URL=jdbc:mysql://mysql-v8:3306/crud?zeroDateTimeBehavior=convertToNull
 
 EXPOSE 8080
-# Run on cesardl-bridge-network alongside mysql-v8, and publish on the same
-# port used by the local SmartTomcat run config:
+# Run on cesardl-bridge-network alongside mysql-v8, published on 8080.
+# No --restart policy: this is started on demand, not meant to come back
+# on its own after a Docker/host restart.
 #   docker run -d --name person-sample-webapp --network cesardl-bridge-network \
-#     -p 8282:8080 person-sample-webapp:local
+#     -p 8080:8080 person-sample-webapp:local
